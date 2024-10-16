@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Eagles for Elders</title>
+    <link rel="stylesheet" href="events.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="about.html">Home</a></li>
+                <li class="nav-item"><a href="events.html">Events</a></li>
+                <li class="nav-item"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Eagles for Elders</h1>
+    </header>
+
+    <div class="container">
+        <h2>Submitted Event Details</h2>
+        <div id="eventDetails" class="event-details-container">
+            <!-- The submitted form data will be displayed here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Eagles for Elders. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get the stored events from localStorage
+        const events = JSON.parse(localStorage.getItem('eventsData')) || [];
+
+        // Function to display events
+        function displayEvents() {
+            const eventDetailsContainer = document.getElementById('eventDetails');
+            eventDetailsContainer.innerHTML = ''; // Clear previous events
+
+            // Check if there are any events
+            if (events.length > 0) {
+                let eventDetailsHtml = '';
+
+                // Loop through each event and build the HTML to display it
+                events.forEach((event, index) => {
+                    eventDetailsHtml += `
+                        <div class="event-card">
+                            <h3>Event ${index + 1}</h3>
+                            <p><strong>Name:</strong> ${event.name}</p>
+                            <p><strong>Email:</strong> ${event.email}</p>
+                            <p><strong>Start Time (24 hour format):</strong> ${event.startTime}</p>
+                            <p><strong>End Time (24 hour format):</strong> ${event.endTime}</p>
+                            <p><strong>Message:</strong> ${event.message}</p>
+                            <button onclick="removeEvent(${index})">Remove Event</button>
+                        </div>
+                    `;
+                });
+
+                // Display the event details
+                eventDetailsContainer.innerHTML = eventDetailsHtml;
+            } else {
+                // If no events, display a message
+                eventDetailsContainer.innerHTML = '<p>No event details found. Please submit an event.</p>';
+            }
+        }
+
+        // Function to remove an event
+        function removeEvent(index) {
+            events.splice(index, 1); // Remove event from the array
+            localStorage.setItem('eventsData', JSON.stringify(events)); // Update local storage
+            displayEvents(); // Refresh the displayed events
+        }
+
+        // Initial display of events
+        displayEvents();
+    </script>
+</body>
+</html>
