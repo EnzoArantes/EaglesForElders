@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagles for Elders</title>
+    <link rel="stylesheet" href="contact.css">
+    <script src="https://kit.fontawesome.com/30870c0125.js" crossorigin="anonymous"></script> <!--icon input for social apps from FontAwesome website-->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="about.html">Home</a></li>
+                <li class="nav-item"><a href="events.html">Events</a></li>
+                <li class="nav-item"><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Eagles for Elders</h1>
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <div class="contact-bottom">
+                <form id="contactForm">
+                    <label for="Name">Enter Full Name:</label>
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <label for="email">Enter email:</label>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <label for="start time">Enter Start Time:</label>
+                    <input type="time" name="start time" placeholder="start time" required>
+                    <label for="end time">Enter End Time:</label>
+                    <input type="time" name="end time" placeholder="end time" required>
+                    <label for="Message">Enter a description of what you need:</label>
+                    <textarea name="Message" rows="6" placeholder="Description" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Eagles for Elders. All rights reserved.</p>
+    </footer>
+
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission from refreshing the page
+
+        // Get form values
+        const name = document.querySelector('input[name="Name"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const startTime = document.querySelector('input[name="start time"]').value;
+        const endTime = document.querySelector('input[name="end time"]').value;
+        const message = document.querySelector('textarea[name="Message"]').value;
+
+        // Get the existing data from localStorage, if it exists
+        let events = JSON.parse(localStorage.getItem('eventsData')) || [];
+
+        // Add the new event to the array
+        events.push({
+            name: name,
+            email: email,
+            startTime: startTime,
+            endTime: endTime,
+            message: message
+        });
+
+        // Store the updated array back in localStorage
+        localStorage.setItem('eventsData', JSON.stringify(events));
+
+        // Redirect to events page
+        window.location.href = "events.html";
+    });
+    </script>
+</body>
+</html>
